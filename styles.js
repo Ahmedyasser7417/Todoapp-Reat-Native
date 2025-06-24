@@ -108,13 +108,13 @@ export const styles = StyleSheet.create({
     color: "#888",
   },
   deleteButton: {
-    backgroundColor: "#ff4444",
+
     padding: 8,
     borderRadius: 5,
     marginLeft: 10,
   },
   doneButton: {
-    backgroundColor: "#4CAF50",
+
     padding: 8,
     borderRadius: 5,
     marginLeft: 10,

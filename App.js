@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from './styles';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
+import MainNavigator from './navigation/MainNavigator';
 
 const STORAGE_KEY = '@todos';
 
@@ -61,50 +62,7 @@ export default function App() {
   });
 
   return (
-    <View style={styles.container}>
-      <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 19 }}>Todo App</Text>
-        
-        <TodoInput onAddTodo={handleAddTodo} />
-        
-        <View style={styles.dividerLine} />
-        
-        <View style={styles.filterContainer}>
-          <TouchableOpacity
-            style={filter === 'All' ? styles.activeFilterBtn : styles.filterBtn}
-            activeOpacity={0.7}
-            onPress={() => setFilter('All')}
-          >
-            <Text style={filter === 'All' ? styles.activeFilterText : styles.filterText}>All</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={filter === 'Active' ? styles.activeFilterBtn : styles.filterBtn}
-            activeOpacity={0.7}
-            onPress={() => setFilter('Active')}
-          >
-            <Text style={filter === 'Active' ? styles.activeFilterText : styles.filterText}>Active</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={filter === 'Done' ? styles.activeFilterBtn : styles.filterBtn}
-            activeOpacity={0.7}
-            onPress={() => setFilter('Done')}
-          >
-            <Text style={filter === 'Done' ? styles.activeFilterText : styles.filterText}>Done</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TodoList
-          todos={filteredTodos}
-          onDeleteTodo={handleDeleteTodo}
-          onToggleTodo={handleToggleTodo}
-        />
-        <View style={styles.todosContainer}>
-          {filteredTodos.length === 0 ? (
-            <Text style={{ textAlign: 'center', marginTop: 20 }}>No todos found</Text>
-          ) : null}
-        </View>
-      </View>
-    </View>
+    <MainNavigator />
   );
 }
 
