@@ -4,14 +4,15 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#fff",
     alignItems: "center",
+    backgroundColor: "#fff",
     paddingBottom: 20,
+    width: '100%',
   },
   input: {
     borderWidth: 1,
     borderColor: "#aeaeae",
-    width: "90%",
+    width: "80%",
     marginVertical: 10,
     height: 50,
     padding: 10,
@@ -74,5 +75,52 @@ export const styles = StyleSheet.create({
   },
   doneTodo: {
     textDecorationLine: "line-through",
+  },
+  todoList: {
+    width: "90%",
+    marginTop: 16,
+  },
+  todoItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 12,
+    borderBottomWidth: 1,
+    borderColor: "#eee",
+    backgroundColor: "#fff",
+  },
+  todoContent: {
+    flex: 1,
+  },
+  todoTitle: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  todoTitleDone: {
+    textDecorationLine: "line-through",
+    color: "#888",
+  },
+  todoDescription: {
+    color: "#555",
+    marginTop: 4,
+  },
+  todoDescriptionDone: {
+    textDecorationLine: "line-through",
+    color: "#888",
+  },
+  deleteButton: {
+    backgroundColor: "#ff4444",
+    padding: 8,
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  doneButton: {
+    backgroundColor: "#4CAF50",
+    padding: 8,
+    borderRadius: 5,
+    marginLeft: 10,
+  },
+  deleteButtonText: {
+    color: "#fff",
+    fontSize: 12,
   },
 });
