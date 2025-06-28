@@ -1,57 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../styles';
 import TodoInput from '../components/TodoInput';
 import TodoList from '../components/TodoList';
-
-const STORAGE_KEY = '@todos';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo, deleteTodo, toggleTodo, setFilter } from '../src/store/actions';
 
 export default function HomeScreen() {
-    const [todos, setTodos] = useState([]);
-    const [filter, setFilter] = useState('All');
-
-    useEffect(() => {
-        loadTodos();
-    }, []);
-
-    const loadTodos = async () => {
-        try {
-            const storedTodos = await AsyncStorage.getItem(STORAGE_KEY);
-            if (storedTodos) {
-                setTodos(JSON.parse(storedTodos));
-            }
-        } catch (error) {
-            console.error('Error loading todos:', error);
-        }
-    };
-
-    const saveTodos = async (newTodos) => {
-        try {
-            await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newTodos));
-        } catch (error) {
-            console.error('Error saving todos:', error);
-        }
-    };
+    const dispatch = useDispatch();
+    const todos = useSelector(state => state.todos);
+    const filter = useSelector(state => state.filter);
 
     const handleAddTodo = (newTodo) => {
-        const updatedTodos = [...todos, newTodo];
-        setTodos(updatedTodos);
-        saveTodos(updatedTodos);
+        dispatch(addTodo(newTodo));
     };
-
     const handleDeleteTodo = (id) => {
-        const updatedTodos = todos.filter(todo => todo.id !== id);
-        setTodos(updatedTodos);
-        saveTodos(updatedTodos);
+        dispatch(deleteTodo(id));
     };
-
     const handleToggleTodo = (id) => {
-        const updatedTodos = todos.map(todo =>
-            todo.id === id ? { ...todo, done: !todo.done } : todo
-        );
-        setTodos(updatedTodos);
-        saveTodos(updatedTodos);
+        dispatch(toggleTodo(id));
+    };
+    const handleSetFilter = (filter) => {
+        dispatch(setFilter(filter));
     };
 
     const filteredTodos = todos.filter(todo => {
@@ -70,21 +40,21 @@ export default function HomeScreen() {
                     <TouchableOpacity
                         style={filter === 'All' ? styles.activeFilterBtn : styles.filterBtn}
                         activeOpacity={0.7}
-                        onPress={() => setFilter('All')}
+                        onPress={() => handleSetFilter('All')}
                     >
                         <Text style={filter === 'All' ? styles.activeFilterText : styles.filterText}>All</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={filter === 'Active' ? styles.activeFilterBtn : styles.filterBtn}
                         activeOpacity={0.7}
-                        onPress={() => setFilter('Active')}
+                        onPress={() => handleSetFilter('Active')}
                     >
                         <Text style={filter === 'Active' ? styles.activeFilterText : styles.filterText}>Active</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={filter === 'Done' ? styles.activeFilterBtn : styles.filterBtn}
                         activeOpacity={0.7}
-                        onPress={() => setFilter('Done')}
+                        onPress={() => handleSetFilter('Done')}
                     >
                         <Text style={filter === 'Done' ? styles.activeFilterText : styles.filterText}>Done</Text>
                     </TouchableOpacity>
